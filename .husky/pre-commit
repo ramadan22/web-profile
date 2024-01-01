@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run lint
+
+if git log -n 1 --pretty=format:%s | grep -q "git commit -m"; then
+    echo "Error: Please use 'npm run commit' or 'git-cz' to commit."
+    exit 1
+fi

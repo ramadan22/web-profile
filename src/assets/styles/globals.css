@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(222.2, 47.4%, 11.2%);
+
+  --muted: hsl(210, 40%, 96.1%);
+  --muted-foreground: hsl(215.4, 16.3%, 46.9%);
+
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(222.2, 47.4%, 11.2%);
+
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(222.2, 47.4%, 11.2%);
+
+  --border: hsl(214.3, 31.8%, 91.4%);
+
+  --input: hsl(214.3, 31.8%, 91.4%);
+
+  --primary: hsl(222.2, 47.4%, 11.2%);
+  --primary-foreground: hsl(210, 40%, 98%);
+
+  --secondary: hsl(210, 40%, 96.1%);
+  --secondary-foreground: hsl(222.2, 47.4%, 11.2%);
+
+  --accent: hsl(210, 40%, 96.1%);
+  --accent-foreground: hsl(222.2, 47.4%, 11.2%);
+
+  --destructive: hsl(0, 100%, 50%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+
+  --ring: hsl(215, 20.2%, 65.1%);
+
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('../fonts/sen/Sen-Regular.ttf') format('ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('../fonts/sen/Sen-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('../fonts/sen/Sen-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Sen';
+  src: url('../fonts/sen/Sen-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+body {
+  @apply bg-[#FAFBFF];
+}
+
+/* width */
+.scroll-custom::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  opacity: 0;
+}
+
+/* .scroll-custom:hover::-webkit-scrollbar {
+  display: block;
+} */
+
+/* Track */
+.scroll-custom::-webkit-scrollbar-track {
+  /* background: #000; */
+  @apply border-x-0 border-y border-solid border-gray-300;
+}
+
+/* Handle */
+.scroll-custom::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+/* .scroll-custom::-webkit-scrollbar-thumb:hover {
+  background: #888;
+} */
