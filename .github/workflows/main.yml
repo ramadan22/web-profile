@@ -21,8 +21,9 @@ jobs:
       - name: Create .env
         uses: SpicyPizza/create-envfile@v1
         with:
-          NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          envkey_NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+          envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          file_name: .env
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -42,8 +43,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
