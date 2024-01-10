@@ -18,12 +18,12 @@ jobs:
           echo "NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}"
           echo "NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}"
 
-      - name: Create .env
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          input_NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
-          input_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          file_name: .env
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }} >> .env
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
+          cat .env
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
