@@ -1,4 +1,7 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
+
+// import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   content: [
@@ -55,8 +58,69 @@ const config: Config = {
           DEFAULT: '#78776F',
         },
       },
+      keyframes: {
+        'slide-left-to-right': {
+          '0%, 50%': {
+            opacity: '0',
+            transform: 'translateX(-50px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0px)',
+          },
+        },
+        'slide-right-to-left': {
+          '0%, 50%': {
+            opacity: '0',
+            transform: 'translateX(50px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0px)',
+          },
+        },
+        'slide-bottom-to-top': {
+          '0%, 50%': {
+            opacity: '0',
+            transform: 'translateY(50px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0px)',
+          },
+        },
+        'slide-top-to-bottom': {
+          '0%, 50%': {
+            opacity: '0',
+            transform: 'translateY(-50px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0px)',
+          },
+        },
+      },
+      animation: {
+        'slide-left-to-right': 'slide-left-to-right 1 forwards',
+        'slide-right-to-left': 'slide-right-to-left 1 forwards',
+        'slide-bottom-to-top': 'slide-bottom-to-top 1 forwards',
+        'slide-top-to-bottom': 'slide-top-to-bottom 1 forwards',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          'animation-duration': (value) => ({
+            'animation-duration': value,
+          }),
+        },
+        {
+          values: theme('transitionDelay'),
+        },
+      );
+    }),
+  ],
 };
 export default config;

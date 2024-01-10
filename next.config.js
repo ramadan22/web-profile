@@ -30,6 +30,8 @@ const nextConfig = {
 
     return config;
   },
+
+  output: 'standalone',
 };
 
 // eslint-disable-next-line no-undef

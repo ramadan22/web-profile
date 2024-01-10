@@ -68,8 +68,20 @@
   font-weight: 700;
 }
 
+@layer components {
+  .container {
+    @apply sm:max-w-none md:max-w-none lg:max-w-none xl:max-w-[1280px] 2xl:max-w-[1440px];
+  }
+}
+
+html {
+  /* @apply bg-[#FAFBFF]; */
+  @apply h-full overflow-hidden;
+}
+
 body {
-  @apply bg-[#FAFBFF];
+  /* @apply bg-[#FAFBFF]; */
+  @apply bg-gray-50 h-full overflow-auto;
 }
 
 /* width */

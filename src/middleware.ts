@@ -42,8 +42,8 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    '/overview',
-    '/users',
-    '/',
+    // '/overview',
+    // '/users',
+    // '/',
   ],
 };
