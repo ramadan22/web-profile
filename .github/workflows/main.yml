@@ -21,8 +21,10 @@ jobs:
       - name: Create .env
         uses: SpicyPizza/create-envfile@v1
         with:
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          file_name: .env
+          entryPoint: |
+            NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+            NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
 
       - name: Debug .env file
         run: cat .env
