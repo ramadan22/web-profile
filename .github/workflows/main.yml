@@ -15,13 +15,13 @@ jobs:
 
       - name: Debug Environment Variables
         run: |
-          echo "NEXTAUTH_URL: ${{ env.NEXTAUTH_URL }}"
+          echo "NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}"
           echo "NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}"
 
       - name: Create .env
         uses: SpicyPizza/create-envfile@v1
         with:
-          NEXTAUTH_URL: ${{ env.NEXTAUTH_URL }}
+          NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
 
       - name: Set up Node.js
