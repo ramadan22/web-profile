@@ -12,13 +12,21 @@ services:
     restart: always
     ports:
       - 3000:3000
-    # networks:
-    #   - my_network
+    networks:
+      - my_network
 
-  # Add more containers below (nginx, postgres, etc.)
+  nginx:
+    image: nginx:alpine-slim
+    container_name: my-nginx
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - my_network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # Add additional NGINX configuration or static files if needed
 
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-# networks:
-#   my_network:
-#     external: true
+networks:
+  my_network:
+    external: true
