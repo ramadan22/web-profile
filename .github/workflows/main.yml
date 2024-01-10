@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Debug Environment Variables
+        run: |
+          echo "NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}"
+          echo "NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}"
+
       - name: Create .env
         uses: SpicyPizza/create-envfile@v1
         with:
