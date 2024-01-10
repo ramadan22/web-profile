@@ -21,8 +21,8 @@ jobs:
       - name: Create .env
         uses: SpicyPizza/create-envfile@v1
         with:
-          envkey_NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
-          envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          input_NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+          input_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           file_name: .env
 
       - name: Set up Node.js
