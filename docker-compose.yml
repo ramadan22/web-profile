@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   next-app:
@@ -9,24 +9,26 @@ services:
       args:
         NEXTAUTH_URL: ${NEXTAUTH_URL}
         NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-    restart: always
+    # restart: unless-stopped
     ports:
       - 3000:3000
     networks:
-      - my_network
-
+      - web_profile_network
+  
   nginx:
-    image: nginx:alpine-slim
-    container_name: my-nginx
-    restart: always
+    build: ./nginx
+    container_name: nginx
+    # restart: unless-stopped
     ports:
       - 80:80
+    # depends_on:
+    #   - next-app
     networks:
-      - my_network
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - web_profile_network
+    # volumes:
+    #   - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       # Add additional NGINX configuration or static files if needed
 
 networks:
-  my_network:
+  web_profile_network:
     external: true

@@ -39,6 +39,8 @@ FROM base AS runner
 
 WORKDIR /app
 
+RUN npm install --global pm2
+
 RUN npm i sharp
 
 # Don't run production as root
@@ -65,4 +67,4 @@ ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
 
 # Note: Don't expose ports here, Compose will handle that for us
 
-CMD ["node", "server.js"]
+CMD ["pm2-runtime", "node", "server.js"]
