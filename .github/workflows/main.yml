@@ -26,8 +26,9 @@ jobs:
             NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
             NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
 
-      - name: Debug .env file
-        run: cat .env
+
+      - name: Create .env manually
+        run: echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" > .env && echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
 
       # - name: Set up Node.js
       #   uses: actions/setup-node@v3
