@@ -44,6 +44,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
+        env:
+          NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
