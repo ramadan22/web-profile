@@ -15,13 +15,13 @@ jobs:
 
       - name: Debug Environment Variables
         run: |
-          echo "NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}"
+          echo "NEXTAUTH_URL: http://test.123.com"
           echo "NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}"
 
       - name: 'Create env file'
         run: |
           touch .env
-          echo NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }} >> .env
+          echo NEXTAUTH_URL=http://test.123.com >> .env
           echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
           cat .env
 
