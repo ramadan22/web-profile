@@ -51,7 +51,7 @@ jobs:
           context: .
           file: ./nginx/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/nginx:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
           
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
@@ -61,7 +61,7 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/nginx:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
             
             docker system prune --force
             
