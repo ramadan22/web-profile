@@ -52,7 +52,7 @@ jobs:
           file: ./nginx/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
-          
+
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
         with:
@@ -64,6 +64,13 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
             
             sudo docker system prune --force
+
+            if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
+                echo "Creating Docker network"
+                sudo docker network create web_profile_network
+              else
+                echo "Docker network 'web_profile_network' already exists, skipping creation."
+              fi
             
             sudo docker run -d --name next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
             sudo docker run -d --name nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
