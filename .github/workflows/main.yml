@@ -63,7 +63,7 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
             
-            docker system prune --force
+            sudo docker system prune --force
             
             sudo docker run -d --name next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
             sudo docker run -d --name nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
