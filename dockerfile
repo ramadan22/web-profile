@@ -39,7 +39,7 @@ FROM base AS runner
 
 WORKDIR /app
 
-RUN npm install --global pm2
+# RUN npm install --global pm2
 
 RUN npm i sharp
 
@@ -67,4 +67,5 @@ ENV NEXTAUTH_SECRET=PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs=
 
 # Note: Don't expose ports here, Compose will handle that for us
 
-CMD ["pm2-runtime", "node", "server.js"]
+# CMD ["pm2-runtime", "node", "server.js"]
+CMD ["node", "server.js"]
