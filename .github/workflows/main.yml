@@ -50,6 +50,9 @@ jobs:
           file: ./docker/next-app/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
+          build-args: |
+            "NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }}"
+            "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
           
       - name: Build and push Docker image nginx
         uses: docker/build-push-action@v2
