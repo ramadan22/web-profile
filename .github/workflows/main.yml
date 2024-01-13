@@ -13,17 +13,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Debug Environment Variables
-        run: |
-          echo "NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}"
-          echo "NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}"
+      # - name: Debug Environment Variables
+      #   run: |
+      #     echo "NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}"
+      #     echo "NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}"
 
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }} >> .env
-          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
-          cat .env
+      # - name: 'Create env file'
+      #   run: |
+      #     touch .env
+      #     echo NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }} >> .env
+      #     echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
+      #     cat .env
+
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+          envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
