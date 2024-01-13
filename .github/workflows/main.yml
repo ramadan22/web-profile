@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: ./docker/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
           
@@ -55,7 +55,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./nginx/Dockerfile
+          file: ./docker/nginx/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
 
