@@ -6,8 +6,8 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios';
 import axios from 'axios';
-import { getSession, signOut } from 'next-auth/react';
-import { SessionTypes } from '@/services/authentication/AuthenticationTypes';
+// import { getSession, signOut } from 'next-auth/react';
+// import { SessionTypes } from '@/services/authentication/AuthenticationTypes';
 import { DefaultApiResponseType } from '@/types/ApiResponseTypes';
 
 const AxiosInstance = axios.create({
@@ -21,15 +21,15 @@ const onRequest = async (
   config: InternalAxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> => {
   config.headers['x-api-key'] = process.env.NEXT_PUBLIC_X_API_KEY;
-  const session = await getSession();
+  // const session = await getSession();
 
-  const user = session?.user as SessionTypes;
+  // const user = session?.user as SessionTypes;
 
-  if (session && !config.headers.Authorization) {
-    if (session?.user) {
-      config.headers.Authorization = user.token;
-    }
-  }
+  // if (session && !config.headers.Authorization) {
+  //   if (session?.user) {
+  //     config.headers.Authorization = user.token;
+  //   }
+  // }
 
   return config;
 };
@@ -51,7 +51,7 @@ AxiosInstance.interceptors.response.use(
   (response: AxiosResponse) => onResponse(response),
   (error: AxiosError<DefaultApiResponseType>) => {
     if (error.response?.data.status === 401) {
-      signOut({ callbackUrl: '/' });
+      // signOut({ callbackUrl: '/' });
     }
     return onResponseError(error);
   },

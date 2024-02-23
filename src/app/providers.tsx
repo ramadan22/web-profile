@@ -1,6 +1,5 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -8,10 +7,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 type Props = {
   children?: React.ReactNode;
 };
-
-export const NextAuthProvider = ({
-  children,
-}: Props) => <SessionProvider>{children}</SessionProvider>;
 
 export const ToastifyProvider = ({
   children,
@@ -29,7 +24,7 @@ export const ReactQueryClientProvider = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
       {children}
     </QueryClientProvider>
   );

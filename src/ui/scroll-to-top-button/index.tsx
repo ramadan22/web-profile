@@ -1,8 +1,10 @@
-'use client';
+// 'use client';
 
 import React, { useState, useEffect } from 'react';
 
 const ScrollToTopButton = () => {
+  const isBrowser = () => typeof window !== 'undefined';
+
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const ScrollToTopButton = () => {
   });
 
   const scrollToTop = () => {
-    console.log('here');
+    if (!isBrowser()) return;
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -26,11 +28,11 @@ const ScrollToTopButton = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4">
+    <div className="fixed z-[2] bottom-4 right-4">
       {isVisible && (
-        <button type="button" onClick={scrollToTop} className="bg-blue-500 text-white px-4 py-2 rounded z-10 right-0">
-          Scroll to Top
-        </button>
+      <button type="button" onClick={() => scrollToTop()} className="bg-blue-500 text-white px-4 py-2 rounded z-10 right-0">
+        Scroll to Top
+      </button>
       )}
     </div>
   );

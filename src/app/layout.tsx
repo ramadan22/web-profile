@@ -1,10 +1,10 @@
-import { NextAuthProvider, ReactQueryClientProvider, ToastifyProvider } from './providers';
+import { ReactQueryClientProvider, ToastifyProvider } from './providers';
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/styles/globals.css';
 
 export const metadata = {
-  title: 'Login',
-  description: 'Login',
+  title: 'Haris Ramadan',
+  description: 'Frontend Developer, Frontend Engineer, Web Profile, Programmer',
 };
 
 const RootLayout = ({
@@ -14,13 +14,11 @@ const RootLayout = ({
 }) => (
   <html lang="en">
     <body>
-      <NextAuthProvider>
-        <ReactQueryClientProvider>
-          <ToastifyProvider>
-            {children}
-          </ToastifyProvider>
-        </ReactQueryClientProvider>
-      </NextAuthProvider>
+      <ReactQueryClientProvider>
+        <ToastifyProvider>
+          {children}
+        </ToastifyProvider>
+      </ReactQueryClientProvider>
     </body>
   </html>
 );
