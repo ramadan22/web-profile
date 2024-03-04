@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    image: harisramadan22/web-profile-nginx:latest
+    image: harisramadan22/web-profile-nginx:alpine-slim
     container_name: web-profile-nginx
     ports:
       - "80:80"
