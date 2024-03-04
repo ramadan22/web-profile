@@ -5,9 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/next-app/Dockerfile
-    image: 
-      ${NODE_ENV == 'local' && 'web-profile-next-app'}
-      ${NODE_ENV == 'production' && 'harisramadan22/web-profile-next-app:latest'}
+    image: harisramadan22/web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
       - "3000:3000"
@@ -18,9 +16,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    image:
-      ${NODE_ENV == 'local' && 'web-profile-nginx'}
-      ${NODE_ENV == 'production' && 'harisramadan22/web-profile-nginx:latest'}
+    image: harisramadan22/web-profile-nginx:latest
     container_name: web-profile-nginx
     ports:
       - "80:80"
