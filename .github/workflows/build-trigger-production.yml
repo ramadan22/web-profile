@@ -61,10 +61,10 @@ jobs:
             sudo docker stop next-app nginx || true
             sudo docker rm next-app nginx || true
       
-            # sudo docker pull harisramadan22/web-profile-next-app:latest
-            # sudo docker pull harisramadan22/web-profile-nginx:alpine-slim
+            sudo docker pull harisramadan22/web-profile-next-app:latest
+            sudo docker pull harisramadan22/web-profile-nginx:alpine-slim
 
             sudo docker image prune -a --force
       
-            # sudo docker run -d --name next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
-            # sudo docker run -d --name nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
+            sudo docker run -d --name next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
+            sudo docker run -d --name nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
