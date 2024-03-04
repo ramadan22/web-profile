@@ -43,6 +43,6 @@ jobs:
           docker-compose -f docker-compose.yml push
 
       - name: Deploy using Docker Compose
-        uses: docker/compose-action@v2
+        uses: docker/compose-cli@v1
         with:
           compose-file: docker-compose.yml
