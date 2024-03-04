@@ -49,13 +49,13 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            # # Check if Docker network exists
-            # if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
-            #   echo "Creating Docker network"
-            #   sudo docker network create web_profile_network
-            # else
-            #   echo "Docker network 'web_profile_network' already exists, skipping creation."
-            # fi
+            # Check if Docker network exists
+            if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
+              echo "Creating Docker network"
+              sudo docker network create web_profile_network
+            else
+              echo "Docker network 'web_profile_network' already exists, skipping creation."
+            fi
       
             # Stop and remove existing containers (if any)
             sudo docker stop next-app nginx || true
@@ -66,5 +66,5 @@ jobs:
 
             sudo docker image prune -a --force
       
-            sudo docker run -d --name next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile:latest
-            sudo docker run -d --name nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/nginx:alpine-slim
+            sudo docker run -d --name next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-next-app:latest
+            sudo docker run -d --name nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-nginx:alpine-slim
