@@ -66,3 +66,6 @@ ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
 # Note: Don't expose ports here, Compose will handle that for us
 
 CMD ["node", "server.js"]
+
+LABEL name="web-profile-next-app" \
+      version="latest"

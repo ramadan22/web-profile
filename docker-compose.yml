@@ -2,33 +2,31 @@ version: '3.8'
 
 services:
   next-app:
-    container_name: next-app
     build:
       context: .
-      dockerfile: Dockerfile
-      args:
-        NEXTAUTH_URL: ${NEXTAUTH_URL}
-        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-    # restart: unless-stopped
+      dockerfile: ./docker/next-app/Dockerfile
+    image: web-profile-next-app
+    container_name: web-profile-next-app
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
       - web_profile_network
-  
+
   nginx:
-    build: ./nginx
-    container_name: nginx
-    # restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    image: web-profile-nginx
+    container_name: web-profile-nginx
     ports:
-      - 80:80
-    # depends_on:
-    #   - next-app
+      - "80:80"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - HOST=${HOST}
+      - PORT=${PORT}
     networks:
       - web_profile_network
-    # volumes:
-    #   - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      # Add additional NGINX configuration or static files if needed
 
 networks:
   web_profile_network:
-    external: true
+    driver: bridge

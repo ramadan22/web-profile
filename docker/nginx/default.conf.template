@@ -1,13 +1,13 @@
 proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:10m inactive=7d use_temp_path=off;
 
 upstream nextjs_upstream {
-  server 103.30.194.124:3000;
+  server ${HOST}:${PORT};
 }
 
 server {
   listen 80 default_server;
   listen [::]:80;
-  server_name 103.30.194.124:3000;
+  server_name ${HOST};
 
   server_tokens off;
 
