@@ -41,3 +41,8 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml build
           docker-compose -f docker-compose.yml push
+
+      - name: Deploy using Docker Compose
+        uses: docker/compose-action@v2
+        with:
+          compose-file: docker-compose.yml
