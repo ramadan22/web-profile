@@ -22,14 +22,6 @@ server {
   proxy_set_header Host $host;
   proxy_cache_bypass $http_upgrade;
 
-  if ($host = "") {
-    return 444;  # Menolak koneksi jika host tidak valid
-  }
-
-  if ($server_port !~ "^3000$") {
-    return 444;  # Menolak koneksi jika port tidak 3000
-  }
-
   location /_next/static {
     proxy_cache STATIC;
     proxy_pass http://nextjs_upstream;
