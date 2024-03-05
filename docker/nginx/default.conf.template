@@ -7,7 +7,7 @@ upstream nextjs_upstream {
 server {
   listen 80 default_server;
   listen [::]:80;
-  server_name 103.30.194.124;
+  server_name http://103.30.194.124;
 
   server_tokens off;
 
