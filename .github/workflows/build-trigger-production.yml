@@ -17,13 +17,13 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           # envkey_NEXTAUTH_URL: ${{ VARS.NEXTAUTH_URL }}
-          envkey_NEXTAUTH_URL: "http://103.30.194.124:3002"
           # envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          envkey_NODE_ENV: "production"
+          envkey_PORT: "3000"
+          envkey_HOST: "103.30.194.124"
+          envkey_BASE_URL: "http://103.30.194.124:3000"
+          envkey_NEXTAUTH_URL: "http://103.30.194.124:3000"
           envkey_NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
-          # envkey_NODE_ENV: "production"
-          # envkey_PORT: "3000"
-          # envkey_HOST: "103.30.194.124"
-          # envkey_BASE_URL: "http://103.30.194.124:3000"
 
       - name: Set up Node.js
         uses: actions/setup-node@v3

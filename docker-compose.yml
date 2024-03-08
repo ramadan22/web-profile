@@ -5,10 +5,16 @@ services:
     build:
       context: .
       dockerfile: ./docker/next-app/Dockerfile
-    image: harisramadan22/web-profile-next-app:latest
+    image: web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
-      - "3000:3000"
+      - "${PORT}:${PORT}"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     networks:
       - web_profile_network
 
@@ -16,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    image: harisramadan22/web-profile-nginx:alpine-slim
+    image: web-profile-nginx:alpine-slim
     container_name: web-profile-nginx
     ports:
       - "80:80"
