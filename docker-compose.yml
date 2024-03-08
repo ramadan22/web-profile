@@ -21,9 +21,9 @@ services:
     ports:
       - "80:80"
     environment:
-      NODE_ENV: ${NODE_ENV}
-      HOST: ${HOST}
-      PORT: ${PORT}
+      - NODE_ENV=production
+      - HOST=103.30.194.124
+      - PORT=3000
     networks:
       - web_profile_network
 
