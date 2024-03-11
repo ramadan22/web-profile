@@ -8,7 +8,7 @@ services:
     image: harisramadan22/web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
-      - "3000:${PORT}"
+      - "${DOCKER_PORT}:${PORT}"
     environment:
       - NODE_ENV=${NODE_ENV}
       - HOST=${HOST}
