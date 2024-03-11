@@ -24,11 +24,13 @@ RUN echo "#!/bin/sh" >> /docker-entrypoint.sh \
     && echo "exec \"\$@\"" >> /docker-entrypoint.sh \
     && chmod +x /docker-entrypoint.sh
 
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
 # Expose the listening port
 EXPOSE 80
 
 # Launch NGINX
-CMD ["/docker-entrypoint.sh", "nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 
 LABEL name="web-profile-nginx" \
       version="latest"
