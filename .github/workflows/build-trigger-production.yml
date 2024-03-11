@@ -59,8 +59,8 @@ jobs:
             fi
       
             # Stop and remove existing containers (if any)
-            sudo docker stop web-profile-next-app web-profile-nginx || true
-            sudo docker rm web-profile-next-app web-profile-nginx || true
+            sudo docker stop web-profile-next-app web-profile-nginx next-app || true
+            sudo docker rm web-profile-next-app web-profile-nginx next-app || true
       
             sudo docker pull harisramadan22/web-profile-next-app:latest
             sudo docker pull harisramadan22/web-profile-nginx:alpine-slim
