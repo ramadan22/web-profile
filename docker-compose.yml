@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/next-app/Dockerfile
-    image: web-profile-next-app:latest
+    image: harisramadan22/web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
       - "3000:${PORT}"
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    image: web-profile-nginx:alpine-slim
+    image: harisramadan22/web-profile-nginx:alpine-slim
     container_name: web-profile-nginx
     ports:
       - "80:80"
