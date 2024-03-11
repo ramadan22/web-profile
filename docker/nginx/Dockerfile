@@ -4,8 +4,10 @@ FROM nginx:alpine-slim
 # Remove any existing config files
 RUN rm /etc/nginx/conf.d/*
 
-# Install gettext untuk envsubst
-RUN apk add --no-cache gettext
+ARG HOST
+ENV HOST=${HOST}
+ARG PORT
+ENV PORT=${PORT}
 
 # Copy config files
 # *.conf files in conf.d/ dir get included in main config
@@ -14,11 +16,13 @@ COPY ./docker/nginx/docker-entrypoint.sh /
 
 RUN chmod +x /docker-entrypoint.sh
 
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
 # Expose the listening port
 EXPOSE 80
 
-# Launch NGINX using the entrypoint script
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# Launch NGINX
+CMD [ "nginx", "-g", "daemon off;" ]
 
-# Set the default command to start NGINX
-CMD ["nginx", "-g", "daemon off;"]
+LABEL name="web-profile-nginx" \
+      version="latest"
