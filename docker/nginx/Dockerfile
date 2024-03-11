@@ -4,6 +4,11 @@ FROM nginx:alpine-slim
 # Remove any existing config files
 RUN rm /etc/nginx/conf.d/*
 
+ARG HOST
+ENV HOST="103.30.194.124"
+ARG PORT
+ENV PORT="3000"
+
 # Copy config files
 # *.conf files in conf.d/ dir get included in main config
 COPY ./docker/nginx/default.conf.template /etc/nginx/conf.d/
