@@ -25,9 +25,6 @@ jobs:
           envkey_NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
           envkey_DOCKER_PORT: "3000"
 
-      - name: View the contents
-        run: cat .env
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -42,7 +39,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml --env-file .env build
           docker-compose -f docker-compose.yml push
 
       - name: Deploy to VPS
