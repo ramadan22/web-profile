@@ -44,7 +44,7 @@ jobs:
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
-        environment: 
+        env: 
           NODE_ENV: production
           PORT: "3000"
           HOST: "103.30.194.124"
