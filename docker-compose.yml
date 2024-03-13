@@ -12,7 +12,7 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - HOST=${HOST}
-      - PORT=${PORT}
+      - PORT=3000
       - NEXTAUTH_URL=${NEXTAUTH_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - TEST_HERE=${TEST_HERE}
