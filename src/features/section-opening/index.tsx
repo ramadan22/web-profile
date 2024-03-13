@@ -22,7 +22,7 @@ const SectionOpeningFeature = () => (
     <div className="flex items-start justify-end w-2/5 relative pr-20">
       <div className="w-7/12 h-[375px] border-8 border-primary/90 rounded-xl overflow-hidden relative bg-white animate-slide-left-to-right animation-duration-[2.5s]" />
       <div className="w-7/12 h-[375px] overflow-hidden bg-white absolute -mt-8 -mr-20 shadow-lg border border-gray-100 rounded-xl animate-slide-left-to-right animation-duration-[3.5s]">
-        <Image src={ProfileImage} objectFit="contain" fill alt="Profile" quality={50} />
+        <Image src={ProfileImage} objectFit="contain" fill alt="Profile" quality={50} draggable={false} />
       </div>
     </div>
   </div>
