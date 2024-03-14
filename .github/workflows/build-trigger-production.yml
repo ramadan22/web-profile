@@ -38,26 +38,12 @@ jobs:
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build and push Docker images
-        env: 
-          NODE_ENV: production
-          PORT: "3000"
-          HOST: "103.30.194.124"
-          NEXTAUTH_URL: "http://103.30.194.124:3000"
-          NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
-          DOCKER_PORT: "3000"
         run: |
-          docker-compose -f docker-compose.yml --env-file .env build
-          docker-compose -f docker-compose.yml --env-file .env push
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
-        env: 
-          NODE_ENV: production
-          PORT: "3000"
-          HOST: "103.30.194.124"
-          NEXTAUTH_URL: "http://103.30.194.124:3000"
-          NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
-          DOCKER_PORT: "3000"
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
