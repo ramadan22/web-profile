@@ -47,7 +47,7 @@ jobs:
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
-          password: ${{ secrets.VPS_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             # Check if Docker network exists
             if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
