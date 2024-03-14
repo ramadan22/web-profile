@@ -2,7 +2,7 @@
 FROM nginx:alpine-slim
 
 # Remove any existing config files
-RUN rm /etc/nginx/conf.d/*
+# RUN rm /etc/nginx/conf.d/*
 
 ARG HOST
 ENV HOST="103.30.194.124"
