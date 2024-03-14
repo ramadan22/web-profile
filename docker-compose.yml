@@ -8,13 +8,13 @@ services:
     image: harisramadan22/web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
-      - "3000:${PORT}"
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - HOST=${HOST}
-      - PORT=${PORT}
-      - NEXTAUTH_URL=${NEXTAUTH_URL}
-      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - "3000:3000"
+    # environment:
+    #   - NODE_ENV=${NODE_ENV}
+    #   - HOST=${HOST}
+    #   - PORT=${PORT}
+    #   - NEXTAUTH_URL=${NEXTAUTH_URL}
+    #   - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     networks:
       - web_profile_network
 
@@ -26,10 +26,10 @@ services:
     container_name: web-profile-nginx
     ports:
       - "80:80"
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - HOST=${HOST}
-      - PORT=${PORT}
+    # environment:
+    #   - NODE_ENV=${NODE_ENV}
+    #   - HOST=${HOST}
+    #   - PORT=${PORT}
     networks:
       - web_profile_network
 
