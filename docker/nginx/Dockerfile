@@ -5,7 +5,7 @@ FROM nginx:alpine-slim
 RUN rm /etc/nginx/conf.d/*
 
 ARG HOST
-ENV HOST="103.30.194.124"
+ENV HOST="27.112.78.71"
 ARG PORT
 ENV PORT="3000"
 

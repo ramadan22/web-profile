@@ -9,6 +9,8 @@ services:
     container_name: web-profile-next-app
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     # environment:
     #   - NODE_ENV=${NODE_ENV}
     #   - HOST=${HOST}
