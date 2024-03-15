@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/next-app/Dockerfile
+      args:
+        - NEXTAUTH_URL=${NEXTAUTH_URL}
     image: harisramadan22/web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
