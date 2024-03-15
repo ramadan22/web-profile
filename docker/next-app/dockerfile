@@ -16,7 +16,7 @@ COPY tsconfig.json .
 COPY tailwind.config.ts .
 COPY postcss.config.js .
 
-# ARG NEXTAUTH_URL
+ARG NEXTAUTH_URL
 ENV NEXTAUTH_URL=${NEXTAUTH_URL}
 ARG NEXTAUTH_SECRET
 ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
@@ -38,7 +38,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# ARG NEXTAUTH_URL
+ARG NEXTAUTH_URL
 ENV NEXTAUTH_URL=${NEXTAUTH_URL}
 ARG NEXTAUTH_SECRET
 ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
