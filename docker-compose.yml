@@ -7,35 +7,29 @@ services:
       dockerfile: ./docker/next-app/Dockerfile
       args:
         - NEXTAUTH_URL=${NEXTAUTH_URL}
-    image: harisramadan22/web-profile-next-app:latest
+        - NODE_ENV=production
+        - PORT=${{ secrets.PORT }}
+        - HOST=${{ secrets.VPS_HOST }}
+        - NEXTAUTH_URL=http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
+        - NEXTAUTH_SECRET="PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
+        - DOCKER_PORT="3000"
+    image: web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    # environment:
-    #   - NODE_ENV=${NODE_ENV}
-    #   - HOST=${HOST}
-    #   - PORT=${PORT}
-    #   - NEXTAUTH_URL=${NEXTAUTH_URL}
-    #   - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - ${PORT}:${DOCKER_PORT}
     networks:
       - web_profile_network
 
-  nginx:
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
-    image: harisramadan22/web-profile-nginx:alpine-slim
-    container_name: web-profile-nginx
-    ports:
-      - "80:80"
-    # environment:
-    #   - NODE_ENV=${NODE_ENV}
-    #   - HOST=${HOST}
-    #   - PORT=${PORT}
-    networks:
-      - web_profile_network
+  # nginx:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/nginx/Dockerfile
+  #   image: harisramadan22/web-profile-nginx:alpine-slim
+  #   container_name: web-profile-nginx
+  #   ports:
+  #     - "80:80"
+  #   networks:
+  #     - web_profile_network
 
 networks:
   web_profile_network:

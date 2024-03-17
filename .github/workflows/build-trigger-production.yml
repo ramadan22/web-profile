@@ -19,9 +19,9 @@ jobs:
           # envkey_NEXTAUTH_URL: ${{ VARS.NEXTAUTH_URL }}
           # envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           envkey_NODE_ENV: production
-          envkey_PORT: "3000"
-          envkey_HOST: "103.30.194.124"
-          envkey_NEXTAUTH_URL: "http://103.30.194.124:3000"
+          envkey_PORT: ${{ secrets.PORT }}
+          envkey_HOST: ${{ secrets.VPS_HOST }}
+          envkey_NEXTAUTH_URL: http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
           envkey_NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
           envkey_DOCKER_PORT: "3000"
 
@@ -33,38 +33,20 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Login to Docker Hub
-        run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-      - name: Build and push Docker images
+      - name: Build Docker images
         run: |
           docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
 
-      - name: Deploy to VPS
+      - name: Save Docker Image to Tarball
+        run: |
+          docker save web-profile-next-app -o web-profile-next-app.tar
+          gzip web-profile-next-app.tar
+
+      - name: Transfer Tarball to VM
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            # Check if Docker network exists
-            if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
-              echo "Creating Docker network"
-              sudo docker network create web_profile_network
-            else
-              echo "Docker network 'web_profile_network' already exists, skipping creation."
-            fi
-      
-            # Stop and remove existing containers (if any)
-            sudo docker stop web-profile-next-app web-profile-nginx || true
-            sudo docker rm web-profile-next-app web-profile-nginx || true
-      
-            sudo docker pull harisramadan22/web-profile-next-app:latest
-            sudo docker pull harisramadan22/web-profile-nginx:alpine-slim
-
-            sudo docker image prune -a --force
-      
-            sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-next-app:latest
-            sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-nginx:alpine-slim
+            scp -o StrictHostKeyChecking=no your-image-name.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VMVPS_HOST_HOST }}:/home/${{ secrets.VPS_USERNAME }}/docker
