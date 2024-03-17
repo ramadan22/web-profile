@@ -8,9 +8,9 @@ services:
       args:
         - NEXTAUTH_URL=${NEXTAUTH_URL}
         - NODE_ENV=production
-        - PORT=${{ secrets.PORT }}
-        - HOST=${{ secrets.VPS_HOST }}
-        - NEXTAUTH_URL=http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
+        - PORT=${PORT}
+        - HOST=${HOST}
+        - NEXTAUTH_URL=http://${HOST}:${PORT}
         - NEXTAUTH_SECRET="PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
         - DOCKER_PORT="3000"
     image: web-profile-next-app:latest
