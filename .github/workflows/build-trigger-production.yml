@@ -49,4 +49,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            scp -o StrictHostKeyChecking=no your-image-name.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VMVPS_HOST_HOST }}:/home/${{ secrets.VPS_USERNAME }}/docker
+            scp -o StrictHostKeyChecking=no your-image-name.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USERNAME }}/docker
