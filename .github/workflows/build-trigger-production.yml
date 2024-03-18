@@ -52,5 +52,5 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            ssh -o StrictHostKeyChecking=no harisramadan22@27.112.78.71 "mkdir -p /home/harisramadan22/docker/test"
+            ssh -o StrictHostKeyChecking=no harisramadan22@27.112.78.71 "sudo mkdir -p /home/harisramadan22/docker/test"
             scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz harisramadan22@27.112.78.71:/home/harisramadan22/docker
