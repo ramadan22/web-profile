@@ -45,8 +45,8 @@ jobs:
       - name: Transfer Tarball to VM
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
+          host: 27.112.78.71
+          username: harisramadan22
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USERNAME }}/docker
+            sudo scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz harisramadan22@27.112.78.71:/home/harisramadan22/docker
