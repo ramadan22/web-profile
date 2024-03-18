@@ -9,7 +9,7 @@ services:
         - NODE_ENV=production
         - PORT=${PORT}
         - HOST=${HOST}
-        - NEXTAUTH_URL=http://${HOST}:${PORT}
+        - NEXTAUTH_URL=${NEXTAUTH_URL}
         - NEXTAUTH_SECRET="PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
         - DOCKER_PORT="3000"
     image: web-profile-next-app:latest
