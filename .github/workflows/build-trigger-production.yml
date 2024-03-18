@@ -52,4 +52,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            rsync -avz -e "ssh -o StrictHostKeyChecking=no" web-profile-next-app.tar.gz harisramadan22@27.112.78.71:/home/harisramadan22/docker
+            scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz harisramadan22@27.112.78.71:/home/harisramadan22/docker
