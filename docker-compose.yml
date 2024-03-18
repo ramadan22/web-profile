@@ -12,23 +12,23 @@ services:
         - NEXTAUTH_URL=${NEXTAUTH_URL}
         - NEXTAUTH_SECRET="PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
         - DOCKER_PORT="3000"
-    image: web-profile-next-app:latest
+    image: harisramadan22/web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
       - ${PORT}:${DOCKER_PORT}
     networks:
       - web_profile_network
 
-  # nginx:
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/nginx/Dockerfile
-  #   image: harisramadan22/web-profile-nginx:alpine-slim
-  #   container_name: web-profile-nginx
-  #   ports:
-  #     - "80:80"
-  #   networks:
-  #     - web_profile_network
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    image: harisramadan22/web-profile-nginx:alpine-slim
+    container_name: web-profile-nginx
+    ports:
+      - "80:80"
+    networks:
+      - web_profile_network
 
 networks:
   web_profile_network:
