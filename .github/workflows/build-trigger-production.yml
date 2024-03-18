@@ -48,5 +48,6 @@ jobs:
           host: 27.112.78.71
           username: harisramadan22
           key: ${{ secrets.SSH_KEY }}
+          port: 22
           script: |
             sudo scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz harisramadan22@27.112.78.71:/home/harisramadan22/docker
