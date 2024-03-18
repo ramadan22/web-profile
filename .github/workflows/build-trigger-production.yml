@@ -42,6 +42,9 @@ jobs:
           docker save web-profile-next-app -o web-profile-next-app.tar
           gzip web-profile-next-app.tar
 
+      - name: Check if Tarball exists
+        run: test -e web-profile-next-app.tar.gz
+
       - name: Transfer Tarball to VM
         uses: appleboy/ssh-action@master
         with:
