@@ -1,27 +1,35 @@
-  deploy:
-    name: deploy artifact
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@v4
+  name: Deploy Web Profile
 
-    - run: echo hello > world.txt
+  on:
+    push:
+      branch:
+        - main
 
-    - uses: actions/upload-artifact@v4
-      with:
-        name: my-artifact
-        path: world.txt
+  jobs:
+    build:
+      runs-on: ubuntu-latest
 
-    - uses: actions/download-artifact@v4
-      with:
-        name: my-artifact
-        path: distfiles
+      steps:
+        - name: checkout
+          uses: actions/checkout@v4
 
-     - name: Transfer file via FTP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "./*"
-          target: "/home/"
+        - run: echo hello > world.txt
+
+        - uses: actions/upload-artifact@v4
+          with:
+            name: my-artifact
+            path: world.txt
+
+        - uses: actions/download-artifact@v4
+          with:
+            name: my-artifact
+            path: distfiles
+
+        - name: Transfer file via FTP
+            uses: appleboy/scp-action@v0.1.7
+            with:
+              host: ${{ secrets.VPS_HOST }}
+              username: ${{ secrets.VPS_USERNAME }}
+              key: ${{ secrets.SSH_KEY }}
+              source: "./*"
+              target: "/home/"
