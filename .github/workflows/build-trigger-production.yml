@@ -43,11 +43,8 @@ jobs:
       - name: Check if Tarball exists
         run: test -e web-profile-next-app.tar.gz
 
-      - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-profile-next-app
-          path: web-profile-next-app.tar.gz
+      - name: List files in working directory
+        run: ls -l
 
       - name: Transfer Tarball to VM
         uses: appleboy/ssh-action@master
@@ -56,4 +53,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            scp -o StrictHostKeyChecking=no /home/runner/work/harisramac/harisramac/web-profile-next-app.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/harisramadan22/docker
+            scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/harisramadan22/docker
