@@ -53,4 +53,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            scp -o StrictHostKeyChecking=no tsconfig.json ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/harisramadan22/docker
+            scp -o tsconfig.json harisramadan22@27.112.78.71:/home/harisramadan22/docker
