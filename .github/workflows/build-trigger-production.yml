@@ -23,5 +23,5 @@
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: distfiles/*
-          target: "/home/harisramadan22/docker/"
+          source: "./*"
+          target: "/home/"
