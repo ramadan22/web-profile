@@ -26,10 +26,10 @@
             path: distfiles
 
         - name: Transfer file via FTP
-            uses: appleboy/scp-action@v0.1.7
-            with:
-              host: ${{ secrets.VPS_HOST }}
-              username: ${{ secrets.VPS_USERNAME }}
-              key: ${{ secrets.SSH_KEY }}
-              source: "./*"
-              target: "/home/"
+          uses: appleboy/scp-action@v0.1.7
+          with:
+            host: ${{ secrets.VPS_HOST }}
+            username: ${{ secrets.VPS_USERNAME }}
+            key: ${{ secrets.SSH_KEY }}
+            source: "./*"
+            target: "/home/"
