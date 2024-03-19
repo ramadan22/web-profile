@@ -43,6 +43,12 @@ jobs:
       - name: Check if Tarball exists
         run: test -e web-profile-next-app.tar.gz
 
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-profile-next-app
+          path: web-profile-next-app.tar.gz
+
       - name: List files in working directory
         run: ls -l
 
@@ -52,5 +58,5 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          localFile: "./tsconfig.json"
+          localFile: web-profile-next-app.tar.gz
           remoteFile: "/home/harisramadan22/docker/tsconfig.json"
