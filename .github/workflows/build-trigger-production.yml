@@ -2,7 +2,7 @@ name: Deploy Web Profile
 
 on:
   push:
-    branch:
+    branches:
       - main
 
 jobs:
@@ -16,8 +16,6 @@ jobs:
       - name: Create .env file
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          # envkey_NEXTAUTH_URL: ${{ VARS.NEXTAUTH_URL }}
-          # envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           envkey_NODE_ENV: production
           envkey_PORT: ${{ secrets.PORT }}
           envkey_HOST: ${{ secrets.VPS_HOST }}
@@ -45,6 +43,12 @@ jobs:
       - name: Check if Tarball exists
         run: test -e web-profile-next-app.tar.gz
 
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-profile-next-app
+          path: web-profile-next-app.tar.gz
+
       - name: Transfer Tarball to VM
         uses: appleboy/ssh-action@master
         with:
@@ -52,4 +56,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz harisramadan22@27.112.78.71:/home/harisramadan22/docker
+            scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/harisramadan22/docker
