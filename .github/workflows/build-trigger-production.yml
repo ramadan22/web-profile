@@ -43,6 +43,16 @@
         - name: Check if Tarball exists
           run: test -e web-profile-next-app.tar.gz
 
+        - uses: actions/upload-artifact@v4
+          with:
+            name: my-artifact
+            path: web-profile-next-app.tar.gz
+
+        - uses: actions/download-artifact@v4
+          with:
+            name: my-artifact
+            path: dockerfiles
+
         - name: Transfer file via FTP
           uses: appleboy/scp-action@v0.1.7
           with:
@@ -50,4 +60,4 @@
             username: ${{ secrets.VPS_USERNAME }}
             key: ${{ secrets.SSH_KEY }}
             source: tsconfig.json
-            target: "/home/harisramadan22/docker/"
+            target: "/home/harisramadan22/"
