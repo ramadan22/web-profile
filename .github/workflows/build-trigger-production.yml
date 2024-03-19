@@ -46,11 +46,12 @@ jobs:
       - name: List files in working directory
         run: ls -l
 
-      - name: Transfer Tarball to VM
-        uses: appleboy/ssh-action@master
+      - name: Transfer file via FTP
+        uses: appleboy/ftp-action@master
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            scp -o tsconfig.json harisramadan22@27.112.78.71:/home/harisramadan22/docker
+          host: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          localFile: "tsconfig.json"
+          remoteFile: "/home/harisramadan22/docker/tsconfig.json"
