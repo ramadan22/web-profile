@@ -53,4 +53,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            scp -o StrictHostKeyChecking=no web-profile-next-app.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/harisramadan22/docker
+            scp -o StrictHostKeyChecking=no tsconfig.json ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/home/harisramadan22/docker
