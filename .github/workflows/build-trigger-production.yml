@@ -24,4 +24,4 @@
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           source: distfiles/*
-          remoteFile: "/home/harisramadan22/docker/tsconfig.json"
+          target: "/home/harisramadan22/docker/"
