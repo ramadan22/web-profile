@@ -10,20 +10,38 @@
       runs-on: ubuntu-latest
 
       steps:
-        - name: checkout
-          uses: actions/checkout@v4
+        - name: Checkout Repository
+          uses: actions/checkout@v2
 
-        - run: echo hello > world.txt
-
-        - uses: actions/upload-artifact@v4
+        - name: Create .env file
+          uses: SpicyPizza/create-envfile@v2.0
           with:
-            name: my-artifact
-            path: world.txt
+            envkey_NODE_ENV: production
+            envkey_PORT: ${{ secrets.PORT }}
+            envkey_HOST: ${{ secrets.VPS_HOST }}
+            envkey_NEXTAUTH_URL: http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
+            envkey_NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
+            envkey_DOCKER_PORT: "3000"
 
-        - uses: actions/download-artifact@v4
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
           with:
-            name: my-artifact
-            path: distfiles
+            node-version: "18"
+
+        - name: Install Dependencies
+          run: npm install
+
+        - name: Build Docker images
+          run: |
+            docker-compose -f docker-compose.yml build
+
+        - name: Save Docker Image to Tarball
+          run: |
+            docker save web-profile-next-app -o web-profile-next-app.tar
+            gzip web-profile-next-app.tar
+
+        - name: Check if Tarball exists
+          run: test -e web-profile-next-app.tar.gz
 
         - name: Transfer file via FTP
           uses: appleboy/scp-action@v0.1.7
@@ -31,5 +49,5 @@
             host: ${{ secrets.VPS_HOST }}
             username: ${{ secrets.VPS_USERNAME }}
             key: ${{ secrets.SSH_KEY }}
-            source: distfiles/*
-            target: "/home/harisramadan22/"
+            source: tsconfig.json
+            target: "/home/harisramadan22/docker/"
