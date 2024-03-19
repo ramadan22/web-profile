@@ -47,11 +47,10 @@ jobs:
         run: ls -l
 
       - name: Transfer file via FTP
-        uses: appleboy/ftp-action@master
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
-          password: ${{ secrets.VPS_PASSWORD }}
-          port: 22
+          key: ${{ secrets.SSH_KEY }}
           localFile: "./tsconfig.json"
           remoteFile: "/home/harisramadan22/docker/tsconfig.json"
