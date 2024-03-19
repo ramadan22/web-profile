@@ -1,62 +1,27 @@
-name: Deploy Web Profile
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
+  deploy:
+    name: deploy artifact
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: checkout
+      uses: actions/checkout@v4
 
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_NODE_ENV: production
-          envkey_PORT: ${{ secrets.PORT }}
-          envkey_HOST: ${{ secrets.VPS_HOST }}
-          envkey_NEXTAUTH_URL: http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
-          envkey_NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
-          envkey_DOCKER_PORT: "3000"
+    - run: echo hello > world.txt
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: my-artifact
+        path: world.txt
 
-      - name: Install Dependencies
-        run: npm install
+    - uses: actions/download-artifact@v4
+      with:
+        name: my-artifact
+        path: distfiles
 
-      - name: Build Docker images
-        run: |
-          docker-compose -f docker-compose.yml build
-
-      - name: Save Docker Image to Tarball
-        run: |
-          docker save web-profile-next-app -o web-profile-next-app.tar
-          gzip web-profile-next-app.tar
-
-      - name: Check if Tarball exists
-        run: test -e web-profile-next-app.tar.gz
-
-      - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-profile-next-app
-          path: web-profile-next-app.tar.gz
-
-      - name: List files in working directory
-        run: ls -l
-
-      - name: Transfer file via FTP
+     - name: Transfer file via FTP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          localFile: web-profile-next-app.tar.gz
+          source: distfiles/*
           remoteFile: "/home/harisramadan22/docker/tsconfig.json"
