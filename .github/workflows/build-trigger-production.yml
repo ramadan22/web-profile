@@ -46,12 +46,12 @@ jobs:
       - name: List files in working directory
         run: ls -l
 
-      - name: Transfer file via SFTP
-        uses: appleboy/ssh-action@master
+      - name: Transfer file via FTP
+        uses: appleboy/ftp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            echo "sudo put tsconfig.json /home/harisramadan22/docker/tsconfig.json" | sftp -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}
-
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          localFile: "./tsconfig.json"
+          remoteFile: "/home/harisramadan22/docker/tsconfig.json"
