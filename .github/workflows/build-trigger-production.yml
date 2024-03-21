@@ -80,3 +80,28 @@
                 sudo docker rm web-profile-next-app || true &&
                 gunzip -c /home/harisramadan22/web-profile-next-app.tar.gz | docker load &&
               "
+
+        - name: Deploy to VPS
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.VPS_HOST }}
+            username: ${{ secrets.VPS_USERNAME }}
+            key: ${{ secrets.SSH_KEY }}
+            script: |
+              # Check if Docker network exists
+              if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
+                echo "Creating Docker network"
+                sudo docker network create web_profile_network
+              else
+                echo "Docker network 'web_profile_network' already exists, skipping creation."
+              fi
+      
+              # Stop and remove existing containers (if any)
+              sudo docker stop web-profile-next-app || true
+              sudo docker rm web-profile-next-app || true
+      
+              # sudo docker pull harisramadan22/web-profile-next-app:latest
+
+              sudo docker image prune -a --force
+      
+              # sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-next-app:latest
