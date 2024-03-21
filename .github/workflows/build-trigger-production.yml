@@ -84,5 +84,5 @@
 
               sudo docker image import /home/harisramadan22/dockerfiles/web-profile-next-app.tar web-profile-next-app:latest
 
-              sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network web-profile-next-app:latest
+              sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network harisramadan22/web-profile-next-app:latest
 
