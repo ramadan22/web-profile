@@ -38,15 +38,14 @@
         - name: Save Docker Image to Tarball
           run: |
             docker save web-profile-next-app -o web-profile-next-app.tar
-            gzip web-profile-next-app.tar
 
         - name: Check if Tarball exists
-          run: test -e web-profile-next-app.tar.gz
+          run: test -e web-profile-next-app.tar
 
         - uses: actions/upload-artifact@v4
           with:
             name: my-artifact
-            path: web-profile-next-app.tar.gz
+            path: web-profile-next-app.tar
 
         - uses: actions/download-artifact@v4
           with:
@@ -82,8 +81,6 @@
               sudo docker rm web-profile-next-app || true
 
               sudo docker image prune -a --force
-      
-              sudo gunzip -c /home/harisramadan22/dockerfiles/web-profile-next-app.tar.gz
 
               sudo docker image import /home/harisramadan22/dockerfiles/web-profile-next-app.tar web-profile-next-app:latest
 
