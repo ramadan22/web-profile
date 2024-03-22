@@ -38,14 +38,17 @@
         - name: Save Docker Image to Tarball
           run: |
             docker save web-profile-next-app -o web-profile-next-app.tar
+            docker save web-profile-nginx -o web-profile-nginx.tar
 
-        - name: Check if Tarball exists
-          run: test -e web-profile-next-app.tar
+        # - name: Check if Tarball exists
+        #   run: test -e web-profile-next-app.tar
 
         - uses: actions/upload-artifact@v4
           with:
             name: my-artifact
-            path: web-profile-next-app.tar
+            path: |
+              web-profile-next-app.tar
+              web-profile-nginx.tar
 
         - uses: actions/download-artifact@v4
           with:
@@ -59,7 +62,7 @@
             username: ${{ secrets.VPS_USERNAME }}
             key: ${{ secrets.SSH_KEY }}
             source: dockerfiles/*
-            target: "/home/harisramadan22/"
+            target: "/home/${{ secrets.VPS_USERNAME }}/"
 
         - name: Deploy to VPS
           uses: appleboy/ssh-action@master
@@ -77,12 +80,14 @@
               fi
       
               # Stop and remove existing containers (if any)
-              sudo docker stop web-profile-next-app || true
-              sudo docker rm web-profile-next-app || true
+              sudo docker stop web-profile-next-app web-profile-nginx || true
+              sudo docker rm web-profile-next-app web-profile-nginx || true
 
               sudo docker image prune -a --force
 
-              sudo docker image import /home/harisramadan22/dockerfiles/web-profile-next-app.tar web-profile-next-app:latest
+              sudo docker image import /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-next-app.tar web-profile-next-app:latest
+              sudo docker image import /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-nginx.tar web-profile-nginx:alpine-slim
 
-              sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network harisramadan22/web-profile-next-app:latest
+              sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network ${{ secrets.VPS_USERNAME }}/web-profile-next-app:latest
+              sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-nginx:alpine-slim
 
