@@ -6,11 +6,11 @@ services:
       context: .
       dockerfile: ./docker/next-app/Dockerfile
       args:
-        - NODE_ENV=production
-        - PORT=${PORT}
+        - NODE_ENV=${NODE_ENV}
         - HOST=${HOST}
+        - PORT=${PORT}
         - NEXTAUTH_URL=${NEXTAUTH_URL}
-        - NEXTAUTH_SECRET="PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
+        - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
         - DOCKER_PORT="3000"
     image: web-profile-next-app:latest
     container_name: web-profile-next-app
@@ -23,6 +23,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
+    args:
+      - NODE_ENV=${NODE_ENV}
+      - HOST=${HOST}
+      - PORT=${PORT}
     image: web-profile-nginx:alpine-slim
     container_name: web-profile-nginx
     ports:
