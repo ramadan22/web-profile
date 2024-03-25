@@ -20,8 +20,8 @@
             envkey_PORT: ${{ secrets.PORT }}
             envkey_HOST: ${{ secrets.VPS_HOST }}
             envkey_NEXTAUTH_URL: http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
-            envkey_NEXTAUTH_SECRET: "PL8q5omVlzWMEg42twhSyEj8mjixrykdmbb9E4Txnjs="
-            envkey_DOCKER_PORT: "3000"
+            envkey_NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+            envkey_DOCKER_PORT: ${{ secrets.PORT }}
 
         - name: Set up Node.js
           uses: actions/setup-node@v3
@@ -39,9 +39,6 @@
           run: |
             docker save web-profile-next-app -o web-profile-next-app.tar
             docker save web-profile-nginx -o web-profile-nginx.tar
-
-        # - name: Check if Tarball exists
-        #   run: test -e web-profile-next-app.tar
 
         - uses: actions/upload-artifact@v4
           with:
@@ -88,6 +85,6 @@
               sudo docker image import /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-next-app.tar web-profile-next-app:latest
               sudo docker image import /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-nginx.tar web-profile-nginx:alpine-slim
 
-              sudo docker run -d --name web-profile-next-app -p 3000:3000 --network web_profile_network ${{ secrets.VPS_USERNAME }}/web-profile-next-app:latest
+              sudo docker run -d --name web-profile-next-app -p ${{ secrets.PORT }}:${{ secrets.PORT }} --network web_profile_network ${{ secrets.VPS_USERNAME }}/web-profile-next-app:latest
               sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network ${{ secrets.DOCKER_USERNAME }}/web-profile-nginx:alpine-slim
 

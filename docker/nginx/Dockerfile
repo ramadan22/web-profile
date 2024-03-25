@@ -5,9 +5,9 @@ FROM nginx:alpine-slim
 RUN rm /etc/nginx/conf.d/*
 
 ARG HOST
-ENV HOST="27.112.78.71"
+ENV HOST=${HOST}
 ARG PORT
-ENV PORT="3000"
+ENV PORT=${PORT}
 
 # Copy config files
 # *.conf files in conf.d/ dir get included in main config
