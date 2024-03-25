@@ -23,10 +23,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    args:
-      - NODE_ENV=${NODE_ENV}
-      - HOST=${HOST}
-      - PORT=${PORT}
+      # args:
+      #   - NODE_ENV=${NODE_ENV}
+      #   - HOST=${HOST}
+      #   - PORT=${PORT}
     image: web-profile-nginx:alpine-slim
     container_name: web-profile-nginx
     ports:
