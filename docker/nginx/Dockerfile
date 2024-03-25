@@ -4,9 +4,9 @@ FROM nginx:alpine-slim
 # Remove any existing config files
 RUN rm /etc/nginx/conf.d/*
 
-ARG HOST
+# ARG HOST
 ENV HOST=${HOST}
-ARG PORT
+# ARG PORT
 ENV PORT=${PORT}
 
 # Copy config files
