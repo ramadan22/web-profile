@@ -19,9 +19,9 @@
             envkey_NODE_ENV: production
             envkey_PORT: ${{ secrets.PORT }}
             envkey_HOST: ${{ secrets.VPS_HOST }}
-            envkey_NEXTAUTH_URL: http://${{ secrets.VPS_HOST }}:${{ secrets.PORT }}
-            envkey_NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-            envkey_DOCKER_PORT: ${{ secrets.PORT }}
+            envkey_NEXTAUTH_URL: http://${{ vars.NEXTAUTH_URL }}:${{ secrets.PORT }}
+            envkey_NEXTAUTH_SECRET: ${{ NEXTAUTH_SECRET }}
+            envkey_DOCKER_PORT: 3000
 
         - name: Set up Node.js
           uses: actions/setup-node@v3
@@ -87,4 +87,6 @@
 
               sudo docker run -d --name web-profile-next-app -p ${{ secrets.PORT }}:${{ secrets.PORT }} --network web_profile_network web-profile-next-app:latest
               sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network web-profile-nginx:alpine-slim
+
+              sudo rm /home/${{ secrets.VPS_USERNAME }}/dockerfiles/*
 
