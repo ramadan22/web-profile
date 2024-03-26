@@ -20,7 +20,7 @@
             envkey_PORT: ${{ secrets.PORT }}
             envkey_HOST: ${{ secrets.VPS_HOST }}
             envkey_NEXTAUTH_URL: http://${{ vars.NEXTAUTH_URL }}:${{ secrets.PORT }}
-            envkey_NEXTAUTH_SECRET: ${{ NEXTAUTH_SECRET }}
+            envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
             envkey_DOCKER_PORT: 3000
 
         - name: Set up Node.js
