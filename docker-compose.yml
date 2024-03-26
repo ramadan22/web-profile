@@ -5,12 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/next-app/Dockerfile
-      # args:
-      #   - NODE_ENV=${NODE_ENV}
-      #   - HOST=${HOST}
-      #   - PORT=${PORT}
-      #   - NEXTAUTH_URL=${NEXTAUTH_URL}
-      #   - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     image: web-profile-next-app:latest
     container_name: web-profile-next-app
     ports:
@@ -22,10 +16,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-      # args:
-      #   - NODE_ENV=${NODE_ENV}
-      #   - HOST=${HOST}
-      #   - PORT=${PORT}
     image: web-profile-nginx:alpine-slim
     container_name: web-profile-nginx
     ports:
