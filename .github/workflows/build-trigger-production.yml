@@ -82,8 +82,8 @@
 
               sudo docker image prune -a --force
 
-              sudo docker image import /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-next-app.tar web-profile-next-app:latest
-              sudo docker image import /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-nginx.tar web-profile-nginx:alpine-slim
+              sudo docker load < /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-next-app.tar
+              sudo docker load < /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-nginx.tar
 
               sudo docker run -d --name web-profile-next-app -p ${{ secrets.PORT }}:${{ secrets.PORT }} --network web_profile_network web-profile-next-app:latest
               sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network web-profile-nginx:alpine-slim
