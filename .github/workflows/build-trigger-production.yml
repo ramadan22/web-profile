@@ -1,9 +1,9 @@
   name: Deploy Web Profile
 
   on:
-    push:
+    pull_request:
       branch:
-        - [main]
+        - main
       types: [closed]
 
   jobs:
