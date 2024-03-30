@@ -12,9 +12,9 @@ import Marquee from 'react-fast-marquee';
 import { BsFiletypeCss, BsFiletypeHtml } from 'react-icons/bs';
 
 const SectionSkillFeature = () => (
-  <div className="container">
+  <div className="container h-[calc(80vh-80px)] pt-20 pb-16 flex flex-col justify-center">
     <h1 className="text-2xl text-center mb-10">Skills</h1>
-    <div className="xl:w-2/3 lg:w-3/4 w-full mx-auto">
+    <div className="xl:w-2/3 lg:w-3/4 w-full mx-auto mix-blend-normal">
       <Marquee className="flex text-xl py-5">
         <div className="flex items-center gap-x-2 px-5 py-2 border rounded-full shadow-lg bg-white mr-5">
           <BsFiletypeHtml />

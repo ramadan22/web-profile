@@ -15,19 +15,19 @@ const HomePage = () => (
     <ScrollToTopButton />
     <NavbarUI />
     <div className="mt-[80px] [&>section:nth-child(odd)]:bg-white">
-      <section className="pt-20 pb-16">
+      <section>
         <SectionOpeningFeature />
       </section>
-      <section className="pt-20 pb-16">
+      <section>
         <SectionEducationalFeature />
       </section>
-      <section className="pt-20 pb-16">
+      <section>
         <CareerExperienceFeature />
       </section>
-      <section className="pt-20 pb-16">
+      <section>
         <SectionSkillFeature />
       </section>
-      <section className="pt-20 pb-16">
+      <section>
         <ProjectHistoryFeature />
       </section>
       <section className="pt-20 pb-16">
