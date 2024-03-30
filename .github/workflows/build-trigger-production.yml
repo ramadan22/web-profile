@@ -10,6 +10,10 @@
       runs-on: ubuntu-latest
 
       steps:
+        - name: Merging to Main
+          if: ${{ github.ref == 'refs/heads/main' }}
+          run: echo "======== START ========"
+
         - name: Checkout Repository
           uses: actions/checkout@v2
 
