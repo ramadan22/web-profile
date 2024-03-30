@@ -2,6 +2,7 @@
     push:
       branch:
         - [main]
+      types: [closed]
 
   name: Deploy Web Profile
 
