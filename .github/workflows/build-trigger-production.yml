@@ -1,9 +1,9 @@
-  name: Deploy Web Profile
-
   on:
     push:
       branch:
         - [main]
+
+  name: Deploy Web Profile
 
   jobs:
     build:
