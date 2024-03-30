@@ -3,6 +3,35 @@ import plugin from 'tailwindcss/plugin';
 
 // import tailwindcssAnimate from 'tailwindcss-animate';
 
+const slideAnimation = ({
+  direction,
+  offset,
+  isShow,
+  withoutDelay = false,
+}:{
+  direction: string,
+  offset: number,
+  isShow: boolean,
+  withoutDelay?: boolean,
+}) => {
+  const opacityStart = isShow ? '0' : '1';
+  const opacityEnd = isShow ? '1' : '0';
+
+  const from = isShow ? `${offset}px` : '0px';
+  const to = isShow ? '0px' : `${offset}px`;
+
+  return {
+    [`0%, ${withoutDelay ? '0.01%' : '50%'}`]: {
+      opacity: opacityStart,
+      transform: `translate${direction}(${from})`,
+    },
+    '100%': {
+      opacity: opacityEnd,
+      transform: `translate${direction}(${to})`,
+    },
+  };
+};
+
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -59,52 +88,71 @@ const config: Config = {
         },
       },
       keyframes: {
-        'slide-left-to-right': {
-          '0%, 50%': {
-            opacity: '0',
-            transform: 'translateX(-50px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateX(0px)',
-          },
-        },
-        'slide-right-to-left': {
-          '0%, 50%': {
-            opacity: '0',
-            transform: 'translateX(50px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateX(0px)',
-          },
-        },
-        'slide-bottom-to-top': {
-          '0%, 50%': {
-            opacity: '0',
-            transform: 'translateY(50px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0px)',
-          },
-        },
-        'slide-top-to-bottom': {
-          '0%, 50%': {
-            opacity: '0',
-            transform: 'translateY(-50px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0px)',
-          },
-        },
+        'slide-to-right': slideAnimation({
+          direction: 'X',
+          offset: -50,
+          isShow: true,
+          withoutDelay: true,
+        }),
+
+        'slide-to-right-delay': slideAnimation({
+          direction: 'X',
+          offset: -50,
+          isShow: true,
+        }),
+
+        'hide-to-right': slideAnimation({
+          direction: 'X',
+          offset: 50,
+          isShow: false,
+          withoutDelay: true,
+        }),
+
+        'slide-to-left': slideAnimation({
+          direction: 'X',
+          offset: 50,
+          isShow: true,
+          withoutDelay: true,
+        }),
+
+        'hide-to-left': slideAnimation({
+          direction: 'X',
+          offset: -50,
+          isShow: false,
+          withoutDelay: true,
+        }),
+
+        'slide-to-top-delay': slideAnimation({
+          direction: 'Y',
+          offset: 50,
+          isShow: true,
+        }),
+
+        'hide-to-top-delay': slideAnimation({
+          direction: 'Y',
+          offset: -50,
+          isShow: false,
+          withoutDelay: true,
+        }),
+
+        'slide-to-bottom-delay': slideAnimation({
+          direction: 'Y',
+          offset: -50,
+          isShow: true,
+        }),
       },
       animation: {
-        'slide-left-to-right': 'slide-left-to-right 1 forwards',
-        'slide-right-to-left': 'slide-right-to-left 1 forwards',
-        'slide-bottom-to-top': 'slide-bottom-to-top 1 forwards',
-        'slide-top-to-bottom': 'slide-top-to-bottom 1 forwards',
+        'slide-to-right': 'slide-to-right 1 forwards',
+        'slide-to-right-delay': 'slide-to-right-delay 1 forwards',
+        'hide-to-right': 'hide-to-right 1 forwards',
+
+        'slide-to-left': 'slide-to-left 1 forwards',
+        'hide-to-left': 'hide-to-left 1 forwards',
+
+        'slide-to-top-delay': 'slide-to-top-delay 1 forwards',
+        'hide-to-top-delay': 'hide-to-top-delay 1 forwards',
+
+        'slide-to-bottom-delay': 'slide-to-bottom-delay 1 forwards',
       },
     },
   },

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const NavbarUI = () => (
-  <nav className="fixed top-0 inset-x-0 border-b border-gray-lightest shadow-lg bg-white z-[1]">
+  <nav id="navbar" className="fixed top-0 inset-x-0 border-b border-gray-lightest shadow-lg bg-white z-[2]">
     <div className="container flex justify-between py-4 items-center mx-auto">
       <div className="text-3xl">
         Harisramadan
