@@ -13,7 +13,7 @@ const SectionOpeningFeature = () => (
   >
     <div className="container h-[calc(100vh-80px)] flex items-center justify-between bg-cover">
       <div className="flex flex-col gap-y-4">
-        <Label className="text-[#ff6101] text-xl animate-slide-to-bottom-delay animation-duration-[0.5s]">Hello, Welcome</Label>
+        <Label className="text-[#c1ff22] text-xl animate-slide-to-bottom-delay animation-duration-[0.5s]">Hello, Welcome</Label>
         <Label className="text-6xl text-white animate-slide-to-bottom-delay animation-duration-[1s]">I m Haris Ramadan</Label>
         <p className="text-lg text-white animate-slide-to-bottom-delay animation-duration-[1.5s]">
           Learn, Sharing, Problem solving, Try something new. I love all of those.
