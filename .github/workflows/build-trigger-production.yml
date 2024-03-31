@@ -1,102 +1,102 @@
-  name: Deploy Web Profile
+name: Deploy Web Profile
 
-  on:
-    pull_request:
-      branch:
-        - main
-      types: [closed]
+on:
+  pull_request:
+    branch:
+      - main
+    types: [closed]
 
-  jobs:
-    build:
-      runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-        - name: Create .env file
-          uses: SpicyPizza/create-envfile@v2.0
-          with:
-            envkey_NODE_ENV: production
-            envkey_PORT: ${{ secrets.PORT }}
-            envkey_HOST: ${{ secrets.VPS_HOST }}
-            envkey_NEXTAUTH_URL: http://${{ vars.NEXTAUTH_URL }}:${{ secrets.PORT }}
-            envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-            envkey_DOCKER_PORT: 3000
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_NODE_ENV: production
+          envkey_PORT: ${{ secrets.PORT }}
+          envkey_HOST: ${{ secrets.VPS_HOST }}
+          envkey_NEXTAUTH_URL: http://${{ vars.NEXTAUTH_URL }}:${{ secrets.PORT }}
+          envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          envkey_DOCKER_PORT: 3000
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: "18"
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
 
-        - name: Install Dependencies
-          run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-        - name: Build Docker images
-          run: |
-            docker-compose -f docker-compose.yml build
+      - name: Build Docker images
+        run: |
+          docker-compose -f docker-compose.yml build
 
-        - name: Save Docker Image to Tarball
-          run: |
-            docker save web-profile-next-app -o web-profile-next-app.tar
-            docker save web-profile-nginx -o web-profile-nginx.tar
+      - name: Save Docker Image to Tarball
+        run: |
+          docker save web-profile-next-app -o web-profile-next-app.tar
+          docker save web-profile-nginx -o web-profile-nginx.tar
 
-        - uses: actions/upload-artifact@v4
-          with:
-            name: my-artifact
-            path: |
-              web-profile-next-app.tar
-              web-profile-nginx.tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: |
+            web-profile-next-app.tar
+            web-profile-nginx.tar
 
-    upload:
-      runs-on: ubuntu-latest
-      needs: build
+  upload:
+    runs-on: ubuntu-latest
+    needs: build
 
-      steps:
-        - uses: actions/download-artifact@v4
-          with:
-            name: my-artifact
-            path: dockerfiles
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: my-artifact
+          path: dockerfiles
 
-        - name: Transfer file via FTP
-          uses: appleboy/scp-action@v0.1.7
-          with:
-            host: ${{ secrets.VPS_HOST }}
-            username: ${{ secrets.VPS_USERNAME }}
-            key: ${{ secrets.SSH_KEY }}
-            source: dockerfiles/*
-            target: "/home/${{ secrets.VPS_USERNAME }}/"
+      - name: Transfer file via FTP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: dockerfiles/*
+          target: "/home/${{ secrets.VPS_USERNAME }}/"
 
-    running: 
-      runs-on: ubuntu-latest
-      needs: [build, upload]
+  running: 
+    runs-on: ubuntu-latest
+    needs: [build, upload]
 
-      steps:
-        - name: Deploy to VPS
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.VPS_HOST }}
-            username: ${{ secrets.VPS_USERNAME }}
-            key: ${{ secrets.SSH_KEY }}
-            script: |
-              # Check if Docker network exists
-              if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
-                echo "Creating Docker network"
-                sudo docker network create web_profile_network
-              else
-                echo "Docker network 'web_profile_network' already exists, skipping creation."
-              fi
-      
-              # Stop and remove existing containers (if any)
-              sudo docker stop web-profile-next-app web-profile-nginx || true
-              sudo docker rm web-profile-next-app web-profile-nginx || true
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # Check if Docker network exists
+            if [[ -z $(sudo docker network ls --format '{{.Name}}' | grep 'web_profile_network') ]]; then
+              echo "Creating Docker network"
+              sudo docker network create web_profile_network
+            else
+              echo "Docker network 'web_profile_network' already exists, skipping creation."
+            fi
+    
+            # Stop and remove existing containers (if any)
+            sudo docker stop web-profile-next-app web-profile-nginx || true
+            sudo docker rm web-profile-next-app web-profile-nginx || true
 
-              sudo docker image prune -a --force
+            sudo docker image prune -a --force
 
-              sudo docker load < /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-next-app.tar
-              sudo docker load < /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-nginx.tar
+            sudo docker load < /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-next-app.tar
+            sudo docker load < /home/${{ secrets.VPS_USERNAME }}/dockerfiles/web-profile-nginx.tar
 
-              sudo docker run -d --name web-profile-next-app -p ${{ secrets.PORT }}:${{ secrets.PORT }} --network web_profile_network web-profile-next-app:latest
-              sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network web-profile-nginx:alpine-slim
+            sudo docker run -d --name web-profile-next-app -p ${{ secrets.PORT }}:${{ secrets.PORT }} --network web_profile_network web-profile-next-app:latest
+            sudo docker run -d --name web-profile-nginx -p 80:80 --network web_profile_network web-profile-nginx:alpine-slim
 
-              sudo rm /home/${{ secrets.VPS_USERNAME }}/dockerfiles/*
+            sudo rm /home/${{ secrets.VPS_USERNAME }}/dockerfiles/*
