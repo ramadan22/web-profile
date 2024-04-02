@@ -1,3 +1,5 @@
+'use client';
+
 import {
   FaHtml5, FaLaptopCode, FaCss3Alt, FaBootstrap, FaReact, FaGit, FaNodeJs, FaRegFileCode,
 } from 'react-icons/fa';
