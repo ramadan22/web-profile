@@ -1,5 +1,4 @@
-'use client';
-
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import ScrollToTopButton from '@/ui/scroll-to-top-button';
 import NavbarUI from '@/ui/navbar';
 import FooterUI from '@/ui/footer';
@@ -9,33 +8,41 @@ import CareerExperienceFeature from '@/features/section-career-experience';
 import SectionSkillFeature from '@/features/section-skill';
 import ProjectHistoryFeature from '@/features/section-project-history';
 import PersonalLearningFeature from '@/features/section-personal-learning';
+import { getSectionOpening, queries } from '@/services/section-opening';
 
-const HomePage = () => (
-  <>
-    <ScrollToTopButton />
-    <NavbarUI />
-    <div className="mt-[80px] [&>section:nth-child(odd)]:bg-white">
-      <section>
-        <SectionOpeningFeature />
-      </section>
-      <section>
-        <SectionEducationalFeature />
-      </section>
-      <section>
-        <CareerExperienceFeature />
-      </section>
-      <section>
-        <SectionSkillFeature />
-      </section>
-      <section>
-        <ProjectHistoryFeature />
-      </section>
-      <section className="pt-20 pb-16">
-        <PersonalLearningFeature />
-      </section>
-    </div>
-    <FooterUI />
-  </>
-);
+export default async function HomePage() {
+  const queryClient = new QueryClient();
 
-export default HomePage;
+  await queryClient.prefetchQuery({
+    queryKey: [queries.GET_SECTION_OPENING],
+    queryFn: getSectionOpening,
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ScrollToTopButton />
+      <NavbarUI />
+      <div className="mt-[80px] [&>section:nth-child(odd)]:bg-white">
+        <section>
+          <SectionOpeningFeature />
+        </section>
+        <section>
+          <SectionEducationalFeature />
+        </section>
+        <section>
+          <CareerExperienceFeature />
+        </section>
+        <section>
+          <SectionSkillFeature />
+        </section>
+        <section>
+          <ProjectHistoryFeature />
+        </section>
+        <section className="pt-20 pb-16">
+          <PersonalLearningFeature />
+        </section>
+      </div>
+      <FooterUI />
+    </HydrationBoundary>
+  );
+}

@@ -108,6 +108,12 @@ const config: Config = {
           withoutDelay: true,
         }),
 
+        'hide-to-right-delay': slideAnimation({
+          direction: 'X',
+          offset: 50,
+          isShow: false,
+        }),
+
         'slide-to-left': slideAnimation({
           direction: 'X',
           offset: 50,
@@ -115,11 +121,23 @@ const config: Config = {
           withoutDelay: true,
         }),
 
+        'slide-to-left-delay': slideAnimation({
+          direction: 'X',
+          offset: 50,
+          isShow: true,
+        }),
+
         'hide-to-left': slideAnimation({
           direction: 'X',
           offset: -50,
           isShow: false,
           withoutDelay: true,
+        }),
+
+        'hide-to-left-delay': slideAnimation({
+          direction: 'X',
+          offset: -50,
+          isShow: false,
         }),
 
         'slide-to-top-delay': slideAnimation({
@@ -145,9 +163,12 @@ const config: Config = {
         'slide-to-right': 'slide-to-right 1 forwards',
         'slide-to-right-delay': 'slide-to-right-delay 1 forwards',
         'hide-to-right': 'hide-to-right 1 forwards',
+        'hide-to-right-delay': 'hide-to-right-delay 1 forwards',
 
         'slide-to-left': 'slide-to-left 1 forwards',
+        'slide-to-left-delay': 'slide-to-left-delay 1 forwards',
         'hide-to-left': 'hide-to-left 1 forwards',
+        'hide-to-left-delay': 'hide-to-left-delay 1 forwards',
 
         'slide-to-top-delay': 'slide-to-top-delay 1 forwards',
         'hide-to-top-delay': 'hide-to-top-delay 1 forwards',

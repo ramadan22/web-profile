@@ -1,26 +1,26 @@
 'use client';
 
-import { ToastContainer } from 'react-toastify';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useState } from 'react';
 
 type Props = {
   children?: React.ReactNode;
 };
 
-export const ToastifyProvider = ({
-  children,
-}: Props) => (
-  <>
-    {children}
-    <ToastContainer />
-  </>
-);
-
-export const ReactQueryClientProvider = ({
+const ReactQueryClientProvider = ({
   children,
 }: Props) => {
-  const queryClient = new QueryClient();
+  const [queryClient] = useState(
+    () => new QueryClient({
+      defaultOptions: {
+        queries: {
+          staleTime: 6 * 1000,
+          refetchInterval: 6 * 1000,
+        },
+      },
+    }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -29,3 +29,5 @@ export const ReactQueryClientProvider = ({
     </QueryClientProvider>
   );
 };
+
+export default ReactQueryClientProvider;

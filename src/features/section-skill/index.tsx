@@ -1,4 +1,3 @@
-import { Label } from '@radix-ui/react-label';
 import {
   FaHtml5, FaLaptopCode, FaCss3Alt, FaBootstrap, FaReact, FaGit, FaNodeJs, FaRegFileCode,
 } from 'react-icons/fa';
@@ -10,6 +9,7 @@ import { SiMysql } from 'react-icons/si';
 import { DiResponsive } from 'react-icons/di';
 import Marquee from 'react-fast-marquee';
 import { BsFiletypeCss, BsFiletypeHtml } from 'react-icons/bs';
+import Label from '@/components/Label';
 
 const SectionSkillFeature = () => (
   <div className="container h-[calc(80vh-80px)] pt-20 pb-16 flex flex-col justify-center">
