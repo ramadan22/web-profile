@@ -12,7 +12,7 @@ import ProjectHistoryFeature from '@/features/section-project-history';
 import PersonalLearningFeature from '@/features/section-personal-learning';
 import { getSectionOpening, queries } from '@/services/section-opening';
 
-const HomePage = async () => {
+export default async function HomePage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -47,6 +47,4 @@ const HomePage = async () => {
       <FooterUI />
     </HydrationBoundary>
   );
-};
-
-export default HomePage;
+}
