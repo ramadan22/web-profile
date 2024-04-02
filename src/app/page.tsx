@@ -10,15 +10,27 @@ import CareerExperienceFeature from '@/features/section-career-experience';
 import SectionSkillFeature from '@/features/section-skill';
 import ProjectHistoryFeature from '@/features/section-project-history';
 import PersonalLearningFeature from '@/features/section-personal-learning';
-import { getSectionOpening, queries } from '@/services/section-opening';
+import { getSectionOpening, queries as QSectionOpening } from '@/services/section-opening';
+import { getSectionEducational, queries as QSectionEducational } from '@/services/section-educational';
 
-export default async function HomePage() {
+const HomePage = () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: [queries.GET_SECTION_OPENING],
-    queryFn: getSectionOpening,
-  });
+  async function query() {
+    'use server';
+
+    await queryClient.prefetchQuery({
+      queryKey: [QSectionOpening.GET_SECTION_OPENING],
+      queryFn: getSectionOpening,
+    });
+
+    await queryClient.prefetchQuery({
+      queryKey: [QSectionEducational.GET_SECTION_EDUCATIONAL],
+      queryFn: getSectionEducational,
+    });
+  }
+
+  query();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
@@ -47,4 +59,6 @@ export default async function HomePage() {
       <FooterUI />
     </HydrationBoundary>
   );
-}
+};
+
+export default HomePage;

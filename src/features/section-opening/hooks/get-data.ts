@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getSectionOpening, queries } from '@/services/section-opening';
+import { getSectionOpening } from '@/services/section-opening';
 
 export const useGetSectionOpening = () => useQuery({
   queryFn: async () => getSectionOpening(),
-  queryKey: [queries.GET_SECTION_OPENING],
+  queryKey: ['GET_SECTION_OPENING'],
 });
