@@ -20,13 +20,13 @@ const SectionOpeningFeature = () => {
       <div className="container h-[calc(100vh-80px)] flex items-center justify-between bg-cover">
         <div className="flex flex-col gap-y-4">
           <Label className="text-[#c1ff22] text-xl animate-slide-to-bottom-delay animation-duration-[0.5s]">
-            {sectionOptionData.data.small_title}
+            {sectionOptionData?.data?.small_title}
           </Label>
           <Label className="text-6xl text-white animate-slide-to-bottom-delay animation-duration-[1s]">
-            {sectionOptionData.data.title}
+            {sectionOptionData?.data?.title}
           </Label>
           <p className="text-lg text-white animate-slide-to-bottom-delay animation-duration-[1.5s]">
-            {sectionOptionData.data.description}
+            {sectionOptionData?.data?.description}
           </p>
           <div className="mt-5 animate-slide-to-bottom-delay animation-duration-[2s]">
             <Button>Contact Me</Button>
