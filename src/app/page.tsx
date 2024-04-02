@@ -1,3 +1,5 @@
+'use server';
+
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import ScrollToTopButton from '@/ui/scroll-to-top-button';
 import NavbarUI from '@/ui/navbar';
