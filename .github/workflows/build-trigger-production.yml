@@ -22,6 +22,8 @@ jobs:
           envkey_HOST: ${{ secrets.VPS_HOST }}
           envkey_NEXTAUTH_URL: http://${{ vars.NEXTAUTH_URL }}:${{ secrets.PORT }}
           envkey_NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          envkey_NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          envkey_NEXT_PUBLIC_X_API_KEY: ${{ secrets.NEXT_PUBLIC_X_API_KEY }}
           envkey_DOCKER_PORT: 3000
 
       - name: Set up Node.js
