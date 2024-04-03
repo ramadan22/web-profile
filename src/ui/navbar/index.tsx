@@ -13,7 +13,7 @@ const NavbarUI = () => (
         <li><Link href="/">Home</Link></li>
         <li><Link href="/">Profile</Link></li>
         <li><Link href="/">Articles</Link></li>
-        <li><Link href="/">Portfolio</Link></li>
+        <li><Link href="/">Portfolio test</Link></li>
         <li><Link href="/">Contact Me</Link></li>
       </ul>
     </div>
