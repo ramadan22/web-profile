@@ -9,7 +9,7 @@ import { useGetSectionEducational } from './hooks/get-data';
 const SectionEducationalFeature = () => {
   const [isShowLeft, setIsShowLeft] = useState(false);
 
-  const { data: sectionEducationalData } = useGetSectionEducational();
+  const { data: sectionEducationalData, isLoading } = useGetSectionEducational();
 
   if (typeof window !== 'undefined') {
     window.addEventListener('scroll', () => {
@@ -31,7 +31,7 @@ const SectionEducationalFeature = () => {
       <div className="container py-20 min-h-[calc(100vh-80px)] flex flex-col justify-center">
         <h1 className="text-2xl text-center mb-10">Educational</h1>
         <div className="relative grid grid-cols-2 gap-20">
-          {sectionEducationalData?.data?.map((item, idx) => {
+          {!isLoading && sectionEducationalData?.data?.map((item, idx) => {
             const lists = item?.list?.split(',');
 
             const pairIndex = Math.floor(idx / 2);

@@ -150,6 +150,12 @@ const config: Config = {
           direction: 'Y',
           offset: -50,
           isShow: false,
+        }),
+
+        'slide-to-bottom': slideAnimation({
+          direction: 'Y',
+          offset: -50,
+          isShow: true,
           withoutDelay: true,
         }),
 
@@ -173,6 +179,7 @@ const config: Config = {
         'slide-to-top-delay': 'slide-to-top-delay 1 forwards',
         'hide-to-top-delay': 'hide-to-top-delay 1 forwards',
 
+        'slide-to-botto': 'slide-to-bottom 1 forwards',
         'slide-to-bottom-delay': 'slide-to-bottom-delay 1 forwards',
       },
     },
