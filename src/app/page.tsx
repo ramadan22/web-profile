@@ -12,6 +12,7 @@ import ProjectHistoryFeature from '@/features/section-project-history';
 import PersonalLearningFeature from '@/features/section-personal-learning';
 import { getSectionOpening, queries as QSectionOpening } from '@/services/section-opening';
 import { getSectionEducational, queries as QSectionEducational } from '@/services/section-educational';
+import { getSectionCareerExperience, queries as QSectionCareerExperience } from '@/services/section-career-experience';
 
 const HomePage = () => {
   const queryClient = new QueryClient();
@@ -27,6 +28,11 @@ const HomePage = () => {
     await queryClient.prefetchQuery({
       queryKey: [QSectionEducational.GET_SECTION_EDUCATIONAL],
       queryFn: getSectionEducational,
+    });
+
+    await queryClient.prefetchQuery({
+      queryKey: [QSectionCareerExperience.GET_SECTION_CAREER_EXPERIENCE],
+      queryFn: getSectionCareerExperience,
     });
   }
 
